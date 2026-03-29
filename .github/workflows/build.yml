@@ -6,16 +6,29 @@ jobs:
   build:
     if: ${{ github.repository != 'Artemis-RGB/Artemis.PluginTemplate' && '[ -f .template ]' }}
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Clone
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
 
       - name: Build
-        run: dotnet publish -c Release src
+        run: dotnet publish src/Artemis.Plugins.Payday2GSI/Artemis.Plugins.Payday2GSI.csproj -c Release
 
-      # You'll need to fill in the name of your plugin here
-      # - name: Upload
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     path: src/{{pluginName}}/bin/x64/Release/net7.0/publish
+      - name: Stage artifact
+        run: |
+          mkdir -p staging
+          find src/Artemis.Plugins.Payday2GSI/bin -type d -name publish -exec sh -c 'cp -r "$1"/. staging/' _ {} \;
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artemis.Plugins.Payday2GSI-Release
+          path: staging/
+          if-no-files-found: error

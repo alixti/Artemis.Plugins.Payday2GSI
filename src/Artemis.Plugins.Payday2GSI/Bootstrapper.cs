@@ -1,22 +1,12 @@
 using Artemis.Core;
-using Artemis.UI.Shared;
+using Artemis.Plugins.Payday2GSI.Prerequisites;
 
 namespace Artemis.Plugins.Payday2GSI;
 
 public class Bootstrapper : PluginBootstrapper
 {
-    public override void OnPluginLoaded(Plugin plugin)
-    {
-        
-    }
-
-    public override void OnPluginEnabled(Plugin plugin)
-    {
-        
-    }
-    
-    public override void OnPluginDisabled(Plugin plugin)
-    {
-        
-    }
+	public override void OnPluginLoaded(Plugin plugin)
+	{
+		AddPluginPrerequisite(new BLTModPrerequisite());
+	}
 }

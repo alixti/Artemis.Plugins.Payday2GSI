@@ -1,0 +1,53 @@
+name: Release Plugin
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag name for the release (e.g. v1.0.0)"
+        required: true
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Publish plugin
+        run: dotnet publish src/Artemis.Plugins.Payday2GSI/Artemis.Plugins.Payday2GSI.csproj -c Release -o artifacts/plugin
+
+      - name: Zip artifact
+        run: |
+          cd artifacts/plugin
+          zip -r ${{ github.workspace }}/Artemis.Plugins.Payday2GSI.zip *
+
+      - name: Resolve tag name
+        id: tag
+        run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            echo "value=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "value=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.value }}
+          files: Artemis.Plugins.Payday2GSI.zip
+          generate_release_notes: true
