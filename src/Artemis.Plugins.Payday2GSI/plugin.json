@@ -1,7 +1,7 @@
 {
     "Guid": "9EBD7507-AC6A-4936-A1E9-CC32DB706545",
     "Name": "Payday 2",
-    "Description": "Artemis GSI integration for Payday 2",
+    "Description": "Artemis plugin for PAYDAY 2 Game State Integration.",
     "Author": "alixti",
     "Website": "https://github.com/alixti/Artemis.Plugins.Payday2GSI",
     "Repository": "https://github.com/alixti/Artemis.Plugins.Payday2GSI",
