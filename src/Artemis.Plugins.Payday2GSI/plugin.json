@@ -6,10 +6,9 @@
     "Website": "https://github.com/alixti/Artemis.Plugins.Payday2GSI",
     "Repository": "https://github.com/alixti/Artemis.Plugins.Payday2GSI",
     "Icon": "Resources/pd2_logo.png",
-    "Version": "1.0.0.0",
+    "Version": "1.0.1.0",
     "Main": "Artemis.Plugins.Payday2GSI.dll",
     "AutoEnableProperties": true,
     "RequiresAdmin": false,
-    "Platforms": "Windows,Linux,OSX",
-    "Api": "1.0.0"
+    "Platforms": "Windows"
 }

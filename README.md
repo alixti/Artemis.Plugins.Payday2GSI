@@ -1,6 +1,7 @@
 # Artemis PAYDAY 2 plugin
 
 [![GitHub release version](https://img.shields.io/github/v/release/alixti/Artemis.Plugins.Payday2GSI.svg)](https://github.com/alixti/Artemis.Plugins.Payday2GSI/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Artemis plugin for PAYDAY 2 Game State Integration.
 
@@ -16,6 +17,23 @@ Artemis plugin for PAYDAY 2 Game State Integration.
 - In Artemis, go to Settings -> Plugins, click Import plugin, and select the downloaded archive.
 - Make sure SuperBLT/BLT is already installed in PAYDAY 2.
 - The plugin prerequisite installs the PAYDAY 2 GSI mod and creates `PAYDAY 2/GSI/Artemis.xml`.
+
+## Building from Source
+
+**Requirements:**
+- [.NET 10 SDK](https://dotnet.microsoft.com/download)
+- Visual Studio 2022 or JetBrains Rider
+
+**Steps:**
+
+```bash
+git clone https://github.com/alixti/Artemis.Plugins.Payday2GSI.git
+cd Artemis.Plugins.Payday2GSI
+dotnet build src/Artemis.Plugins.sln -p:EnablePluginCopy=true
+```
+
+When building inside Rider or Visual Studio, the plugin is automatically copied to the Artemis plugins folder after a successful build.  
+When building via the command line, include `-p:EnablePluginCopy=true` to enable the same behavior.
 
 ## How It Works
 
@@ -38,3 +56,8 @@ Artemis plugin for PAYDAY 2 Game State Integration.
 - Ensures `mods` and `GSI` folders exist.
 - Downloads and extracts the PAYDAY 2 GSI mod into the `mods` folder.
 - Writes `Artemis.xml` with the correct local endpoint.
+
+## Contributing
+
+Found a bug or have a feature request? [Open an issue](https://github.com/alixti/Artemis.Plugins.Payday2GSI/issues/new).  
+Want to contribute code? Fork the repo and open a pull request.
